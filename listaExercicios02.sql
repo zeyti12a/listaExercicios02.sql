@@ -24,3 +24,21 @@ BEGIN
     WHERE Categoria.Nome = categoriaNome;
 END //
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_VerificarLivrosCategoria(IN categoriaNome VARCHAR(100))
+BEGIN
+    DECLARE contador INT;
+
+    SELECT COUNT(*) INTO contador
+    FROM Livro
+    INNER JOIN Categoria ON Livro.Categoria_ID = Categoria.Categoria_ID
+    WHERE Categoria.Nome = categoriaNome;
+
+    IF contador > 0 THEN
+        SELECT 'Existem livros nesta categoria.' AS Mensagem;
+    ELSE
+        SELECT 'Não existem livros nesta categoria.' AS Mensagem;
+    END IF;
+END //
+DELIMITER ;
