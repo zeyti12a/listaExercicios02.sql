@@ -42,3 +42,12 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_LivrosAteAno(IN anoPublicacao INT)
+BEGIN
+    SELECT Titulo
+    FROM Livro
+    WHERE Ano_Publicacao <= anoPublicacao;
+END //
+DELIMITER ;
