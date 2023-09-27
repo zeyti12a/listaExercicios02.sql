@@ -62,3 +62,22 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE sp_AdicionarLivro(IN livroTitulo VARCHAR(255), IN editoraID INT, IN anoPublicacao INT, IN numeroPaginas INT, IN categoriaID INT)
+BEGIN
+    DECLARE livroExiste INT;
+
+    SELECT COUNT(*) INTO livroExiste
+    FROM Livro
+    WHERE Titulo = livroTitulo;
+
+    IF livroExiste = 0 THEN
+        INSERT INTO Livro (Titulo, Editora_ID, Ano_Publicacao, Numero_Paginas, Categoria_ID)
+        VALUES (livroTitulo, editoraID, anoPublicacao, numeroPaginas, categoriaID);
+        SELECT 'Livro adicionado com sucesso.' AS Mensagem;
+    ELSE
+        SELECT 'Erro: O livro com este título já existe.' AS Mensagem;
+    END IF;
+END //
+DELIMITER ;
+
